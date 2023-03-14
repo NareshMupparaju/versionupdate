@@ -1,0 +1,93 @@
+{
+  "$schema": "./devDependencies/schemas/manifestSchema.json",
+  "name": "Columbia.Extensions.NorthAmerica",
+  "publisher": "Columbia Sportswear",
+  "description": "North America POS extensions",
+  "version": "9.40.1.1",
+  "minimumPosVersion": "9.28.0.0",
+  "supportedCountryRegions": [ "US", "CA" ],
+  "dependencies": [
+    {
+      "alias": "knockout",
+      "format": "amd",
+      "modulePath": "Libraries/knockout"
+    }
+  ],
+  "components": {
+    "resources": {
+      "name": "Resources",
+      "description": "Resource files for labels in en-US",
+      "supportedUICultures": [ "en-US", "en-GB" ],
+      "fallbackUICulture": "en-US",
+      "culturesDirectoryPath": "Resources/Strings",
+      "stringResourcesFileName": "resources.resjson"
+    },
+    "extend": {
+      "views": {
+        "ManageShiftsView": {
+          "appBarCommands": [
+            {
+              "name": "ManageShiftsCommand",
+              "description": "App bar command to manage shifts",
+              "modulePath": "ViewExtensions/ManageShifts/ManageShiftsCommand"
+            }
+          ]
+        }
+      },
+      "triggers": [
+        {
+          "name": "PreOperation",
+          "description": "Trigger to support End of the Day pre opeations",
+          "triggerType": "PreOperation",
+          "modulePath": "TriggerHandlers/EndOfDayRecon/PreOperationTrigger"
+        },
+        {
+          "name": "PostLogon",
+          "description": "Trigger to read global settings",
+          "triggerType": "PostLogOn",
+          "modulePath": "TriggerHandlers/EndOfDayRecon/PostLogOnTrigger"
+        },
+        {
+          "name": "PostOperation",
+          "description": "Trigger to support End of the Day post opeations",
+          "triggerType": "PostOperation",
+          "modulePath": "TriggerHandlers/EndOfDayRecon/PostOperationTrigger"
+        }
+      ],
+      "requestHandlers": [
+        {
+          "name": "CreateBankDropTranClientRequest",
+          "description": "Handler to create bank drop transaction",
+          "modulePath": "Handlers/EndOfDay/CreateBankDropTranClientRequestHandlerExt"
+        },
+        {
+          "name": "GetTenderDetailsClientRequest",
+          "description": "Handler to get tender details",
+          "modulePath": "Handlers/EndOfDayRecon/GetTenderDetailsClientRequestHandlerExt"
+        }
+      ]
+    },
+    "create": {
+      "views": [
+        {
+          "name": "ReconReportView",
+          "description": "View to provide Reconciliation Report",
+          "title": "Reconciliation Report",
+          "pageName": "ReconReportView",
+          "phonePageName": "ReconReportView",
+          "viewDirectory": "Views/EndOfDayRecon/",
+          "viewControllerPath": "Views/EndOfDayRecon/ReconReportView"
+        }
+      ],
+      "operations": [
+        {
+          "name": "PermissionCheckOperation",
+          "description": "PermissionCheck Operation",
+          "operationId": "9001",
+          "operationRequestFactoryPath": "Operations/EndOfDay/PermissionCheckOperationRequestFactory",
+          "operationRequestHandlerPath": "Operations/EndOfDay/PermissionCheckOperationRequestHandler"
+        }
+      ]
+    }
+  }
+}
