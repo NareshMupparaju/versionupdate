@@ -17,9 +17,9 @@ jobs:
     - name: Update Version Number
       shell: pwsh
       run: |
-        .\updateversion.ps1
-        echo "$(git diff --name-only --diff-filter=ACMRTUXB main...[${{ github.event.pull_request.head.ref }}] | grep / | sed 's#/*$##' | sort -u)" | tr ' ' '\n'
+        .\updateversion.ps1        
         git config --global user.email "naresh.mup@gmail.com"
         git config --global user.name "NareshMupparaju"
         git commit -m "Update version number" -a
-        git push        
+        git push
+        echo "$(git diff --name-only --diff-filter=ACMRTUXB main...[${{ github.event.pull_request.head.ref }}] | grep / | sed 's#/*$##' | sort -u)" | tr ' ' '\n'
