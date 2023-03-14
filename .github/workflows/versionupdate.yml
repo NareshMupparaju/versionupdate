@@ -18,7 +18,7 @@ jobs:
       shell: pwsh
       run: |                        
         folders = $(git diff --name-only --diff-filter=ACMRTUXB main...[${{ github.event.pull_request.head.ref }}] | grep / | cut -d/ -f2- | sort -u)
-        for folder in $folders
+        for (folder in $folders)
         do
           echo $folder
           .\updateversion.ps1
