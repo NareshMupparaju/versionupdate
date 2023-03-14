@@ -17,12 +17,8 @@ jobs:
     - name: Update Version Number
       shell: pwsh
       run: |                        
-        folders = $(git diff --name-only --diff-filter=ACMRTUXB main...[${{ github.event.pull_request.head.ref }}] | grep / | cut -d/ -f2- | sort -u)
-        for (folder in $folders)
-        {
-          echo $folder
-          .\updateversion.ps1
-        }
+        echo "$(git diff --name-only --diff-filter=ACMRTUXB main...[${{ github.event.pull_request.head.ref }}] | grep / | cut -d/ -f2- | sort -u)"        
+        .\updateversion.ps1
         git config --global user.email "naresh.mup@gmail.com"
         git config --global user.name "NareshMupparaju"
         git commit -m "Update version number" -a
