@@ -23,4 +23,4 @@ jobs:
         git config --global user.name "NareshMupparaju"
         git commit -m "Update version number" -a
         git pull
-        git push origin HEAD:git branch --show-current
+        git push origin main
