@@ -18,7 +18,7 @@ jobs:
       shell: pwsh
       run: |
         .\updateversion.ps1
-        git diff --name-only main...${{ github.event.pull_request.head.ref }} | xargs -n 1 dirname | sort | uniq
+        git diff --name-only main...[${{ github.event.pull_request.head.ref }}] | xargs -n 1 dirname | sort | uniq
         git config --global user.email "naresh.mup@gmail.com"
         git config --global user.name "NareshMupparaju"
         git commit -m "Update version number" -a
