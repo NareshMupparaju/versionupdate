@@ -3,7 +3,7 @@
   "name": "Columbia.Extensions.Global",
   "publisher": "Columbia Sportswear",
   "description": "Global POS extensions",
-  "version": "9.40.1.7",
+  "version": "9.40.1.8",
   "minimumPosVersion": "9.28.0.0",
   "dependencies": [
     {
