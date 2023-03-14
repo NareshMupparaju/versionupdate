@@ -19,4 +19,5 @@ jobs:
         git config --global user.email "naresh.mup@gmail.com"
         git config --global user.name "NareshMupparaju"
         git commit -m "Update version number" -a
-        git push -f origin main
+        git pull <remote> main
+        git push
