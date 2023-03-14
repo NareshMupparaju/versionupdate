@@ -20,7 +20,7 @@ jobs:
         folders = $(git diff --name-only --diff-filter=ACMRTUXB main...[${{ github.event.pull_request.head.ref }}] | grep / | cut -d/ -f2- | sort -u)
         for folder in $folders
         do
-          echo folder
+          echo $folder
           .\updateversion.ps1
         done
         git config --global user.email "naresh.mup@gmail.com"
