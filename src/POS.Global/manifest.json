@@ -3,7 +3,7 @@
   "name": "Columbia.Extensions.Global",
   "publisher": "Columbia Sportswear",
   "description": "Global POS extensions",
-  "version": "9.40.1.5",
+  "version": "9.40.1.6",
   "minimumPosVersion": "9.28.0.0",
   "dependencies": [
     {
@@ -16,7 +16,9 @@
     "resources": {
       "name": "Resources",
       "description": "Resource files for labels in en-US",
-      "supportedUICultures": [ "en-US" ],
+      "supportedUICultures": [
+        "en-US"
+      ],
       "fallbackUICulture": "en-US",
       "culturesDirectoryPath": "Resources/Strings",
       "stringResourcesFileName": "resources.resjson"
@@ -183,11 +185,9 @@
           "appBarCommands": [
             {
               "modulePath": "ViewExtensions/PickingLocationOverride/FulfillmentLinePickCommand"
-
             },
             {
               "modulePath": "ViewExtensions/POSLocationOverride/FulfillmentLineCommand"
-
             }
           ]
         },
