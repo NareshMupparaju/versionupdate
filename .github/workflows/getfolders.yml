@@ -16,4 +16,4 @@ jobs:
         run: echo "::set-output name=folders::$(echo ${{ steps.changed-files.outputs.files }} | xargs -I {} dirname {} | sort | uniq)"
         
       - name: Print folder list
-        run: echo "Folders: ${{ steps.folder-list.outputs.folders }}"
+        run: echo "${{ steps.folder-list.outputs.folders }}"
