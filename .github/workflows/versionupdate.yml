@@ -1,0 +1,22 @@
+name: Update Version Number
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Update Version Number
+      shell: pwsh
+      run: |
+        .\Pipeline\PowerShellScripts\UpdateVersion_NM.ps1
+        git config --global user.email "naresh.mup@gmail.com"
+        git config --global user.name "NareshMupparaju"
+        git commit -m "Update version number" -a
+        git push
