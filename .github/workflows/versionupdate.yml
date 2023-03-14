@@ -1,6 +1,9 @@
 name: Update version number
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
@@ -20,4 +23,4 @@ jobs:
         git config --global user.name "NareshMupparaju"
         git commit -m "Update version number" -a
         git pull
-        git push origin HEAD:main
+        git push origin HEAD:git branch --show-current
