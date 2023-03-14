@@ -1,0 +1,450 @@
+{
+  "$schema": "./devDependencies/schemas/manifestSchema.json",
+  "name": "Columbia.Extensions.Global",
+  "publisher": "Columbia Sportswear",
+  "description": "Global POS extensions",
+  "version": "9.40.1.5",
+  "minimumPosVersion": "9.28.0.0",
+  "dependencies": [
+    {
+      "alias": "knockout",
+      "format": "amd",
+      "modulePath": "Libraries/knockout"
+    }
+  ],
+  "components": {
+    "resources": {
+      "name": "Resources",
+      "description": "Resource files for labels in en-US",
+      "supportedUICultures": [ "en-US" ],
+      "fallbackUICulture": "en-US",
+      "culturesDirectoryPath": "Resources/Strings",
+      "stringResourcesFileName": "resources.resjson"
+    },
+    "create": {
+      "requestHandlers": [
+        {
+          "name": "ExecuteHttpRequestRequestHandler",
+          "description": "Handler for HTTP request",
+          "modulePath": "Handlers/PosFiscalConnector/ExecuteHttpRequestRequestHandler"
+        }
+      ],
+      "views": [
+        {
+          "name": "MultiselectView",
+          "description": "View to provide ability to multi-select",
+          "title": "Multiselect operations",
+          "pageName": "MultiselectView",
+          "phonePageName": "MultiselectView",
+          "viewDirectory": "Views/MultiselectOperations/",
+          "viewControllerPath": "Views/MultiselectOperations/MultiselectView"
+        },
+        {
+          "name": "MultiselectVoidPaymentView",
+          "description": "View to provide ability to multi-select void payment",
+          "title": "Multiselect Void Payments",
+          "pageName": "MultiselectVoidPaymentView",
+          "phonePageName": "MultiselectVoidPaymentView",
+          "viewDirectory": "Views/MultiselectVoidPayments/",
+          "viewControllerPath": "Views/MultiselectVoidPayments/MultiselectVoidPaymentView"
+        }
+      ],
+      "templatedDialogs": [
+        {
+          "name": "BarcodeMsrDialog",
+          "description": "Custom Dialog for Barcode scanning",
+          "htmlPath": "Controls/Dialog/SpendAndGet/BarcodeMsrDialog/BarcodeMsrDialog.html",
+          "modulePath": "Controls/Dialog/SpendAndGet/BarcodeMsrDialog/BarcodeMsrDialog"
+        },
+        {
+          "name": "CustomDialog",
+          "description": "Custom Dialog",
+          "htmlPath": "Controls/Dialog/MultiselectOperations/CustomDialog/DialogSample.html",
+          "modulePath": "Controls/Dialog/MultiselectOperations/CustomDialog/DialogSampleModule"
+        },
+        {
+          "name": "GetGiftReceiptDialog",
+          "description": "Gift Receipt Dialog",
+          "htmlPath": "Controls/Dialog/GiftReceiptDialog/GetGiftReceiptDialog.html",
+          "modulePath": "Controls/Dialog/GiftReceiptDialog/GetGiftReceiptDialog"
+        },
+        {
+          "name": "BarcodeMsrDialog",
+          "description": "",
+          "htmlPath": "Controls/Dialog/PickingLocationOverride/BarcodeMsrDialog/BarcodeMsrDialog.html",
+          "modulePath": "Controls/Dialog/PickingLocationOverride/BarcodeMsrDialog/BarcodeMsrDialog"
+        },
+        {
+          "name": "BarcodeMsrDialog",
+          "description": "",
+          "htmlPath": "Controls/Dialog/PickingLocationOverride/BarcodeLocDialog/BarcodeMsrDialog.html",
+          "modulePath": "Controls/Dialog/PickingLocationOverride/BarcodeLocDialog/BarcodeMsrDialog"
+        }
+      ],
+      "operations": [
+        {
+          "name": "MultiselectOperation",
+          "description": "Multi-select Operation",
+          "operationId": "10001",
+          "operationRequestFactoryPath": "Operations/MultiselectOperations/MultiselectOperationRequestFactory",
+          "operationRequestHandlerPath": "Operations/MultiselectOperations/MultiselectOperationRequestHandler"
+        },
+        {
+          "name": "SpendAndGetDiscount",
+          "description": "Spend and get discount operation",
+          "operationId": "10004",
+          "operationRequestFactoryPath": "Operations/SpendAndGet/SpendAndGetDiscountRequestFactory",
+          "operationRequestHandlerPath": "Operations/SpendAndGet/SpendAndGetDiscountRequestHandler"
+        },
+        {
+          "name": "ClearAllPeriodicDiscount",
+          "description": "Clear all periodic discount operation",
+          "operationId": "10007",
+          "operationRequestFactoryPath": "Operations/UsabilityEnhacements/MCSClearDiscountOperationRequestFactory",
+          "operationRequestHandlerPath": "Operations/UsabilityEnhacements/MCSClearDiscountOperationRequestHandler"
+        },
+        {
+          "name": "RefundReturn",
+          "description": "Refund Return",
+          "operationId": "9002",
+          "operationRequestFactoryPath": "Operations/ReturnRefunds/RefundReturnOperationRequestFactory",
+          "operationRequestHandlerPath": "Operations/ReturnRefunds/RefundReturnOperationRequestHandler"
+        },
+        {
+          "name": "RefundReturnWithoutManager",
+          "description": "Refund Return Without Manager",
+          "operationId": "9003",
+          "operationRequestFactoryPath": "Operations/ReturnRefunds/RefundReturnWithoutManagerRequestFactory",
+          "operationRequestHandlerPath": "Operations/ReturnRefunds/RefundReturnWithoutManagerRequestHandler"
+        },
+        {
+          "name": "PromotionBasketOperation",
+          "description": "PromotionBasket Operation",
+          "operationId": "320",
+          "operationRequestFactoryPath": "Operations/PromotionBasket/PotentialDiscOperationRequestFactory",
+          "operationRequestHandlerPath": "Operations/PromotionBasket/PotentialDiscOperationRequestHandler"
+        },
+        {
+          "name": "RoundUpCharityOperation",
+          "description": "RoundUpCharity Operation",
+          "operationId": "116",
+          "operationRequestFactoryPath": "Operations/RoundUpCharity/CharityOperationRequestFactory",
+          "operationRequestHandlerPath": "Operations/RoundUpCharity/CharityOperationRequestHandler"
+        }
+      ]
+    },
+    "extend": {
+      "views": {
+        "CartView": {
+          "viewController": {
+            "modulePath": "Views/Cart/CartViewController",
+            "name": "Email Receipts",
+            "description": "Extension to check POS email receipt sending capability"
+          }
+        },
+        "CustomerDetailsView": {
+          "controlsConfig": {
+            "customControls": [
+              {
+                "name": "CustomerDetailPanel",
+                "description": "Panel to display spend and get information",
+                "controlName": "customerDetailsFriendsPanel",
+                "htmlPath": "ViewExtensions/CustomerDetails/CustomerDetailsSpendAndGet.html",
+                "modulePath": "ViewExtensions/CustomerDetails/CustomerDetailsSpendAndGet"
+              },
+              {
+                "name": "CustomerOrderHistoryHide",
+                "description": "To hide the customer sales order list",
+                "controlName": "CustomerOrderHistoryHide",
+                "modulePath": "ViewExtensions/CustomerAttribute/CustomerOrderHistoryHide"
+              },
+              {
+                "name": "LinesGridCustomColumnConfiguration",
+                "description": "To filter the assign person & check for valid",
+                "controlName": "LinesGridCustomColumnConfiguration",
+                "modulePath": "ViewExtensions/POSOverridePicking/Cart/LinesGrid/LinesGridCustomColumnConfiguration"
+              },
+              {
+                "name": "FulfillmentLineCommand",
+                "description": "To Check fulfillment DeliveryType is StoreShipping",
+                "controlName": "FulfillmentLineCommand",
+                "modulePath": "ViewExtensions/POSOverridePicking/FulfillmentLine/FulfillmentLineCommand"
+              },
+              {
+                "name": "CartViewController",
+                "description": "The events handler context contains APIs through which a handler can communicate with POS.",
+                "controlName": "CartViewController",
+                "modulePath": "ViewExtensions/CloseOrderAtPickup/Cart/CartViewController"
+              }
+            ]
+          }
+        },
+        "FulfillmentLineView": {
+          "appBarCommands": [
+            {
+              "modulePath": "ViewExtensions/PickingLocationOverride/FulfillmentLinePickCommand"
+
+            },
+            {
+              "modulePath": "ViewExtensions/POSLocationOverride/FulfillmentLineCommand"
+
+            }
+          ]
+        },
+        "PriceCheckView": {
+          "appBarCommands": [
+            {
+              "modulePath": "ViewExtensions/PriceCheck/PriceCheckAppBarCmd"
+            }
+          ],
+          "controlsConfig": {
+            "customControls": [
+              {
+                "name": "PriceCheckCustomControlPanel",
+                "controlName": "priceCheckPanel",
+                "description": "Price check extension view to display additonal prices.",
+                "htmlPath": "ViewExtensions/CSCPriceCheck/PriceCheckCustomControlPanel.html",
+                "modulePath": "ViewExtensions/CSCPriceCheck/PriceCheckCustomControlPanel"
+              }
+            ]
+          }
+        }
+      },
+      "triggers": [
+        {
+          "name": "PostCartCheckout",
+          "description": "Trigger to print damage labels for returns",
+          "triggerType": "PostCartCheckoutTransaction",
+          "modulePath": "TriggerHandlers/POSReceipt/PostCartCheckoutTrigger"
+        },
+        {
+          "name": "PostPayment",
+          "description": "Trigger for open Cash drawer",
+          "triggerType": "PostPayment",
+          "modulePath": "TriggerHandlers/OpenDrawer/PostPaymentTrigger"
+        },
+        {
+          "name": "PrePayment",
+          "description": "Trigger for open cash drawer",
+          "triggerType": "PrePayment",
+          "modulePath": "TriggerHandlers/OpenDrawer/PrePaymentTrigger"
+        },
+        {
+          "name": "EmailReceiptPostEndTransaction",
+          "description": "Email Receipt at end of concluding sales/ return transaction",
+          "triggerType": "PostEndTransaction",
+          "modulePath": "TriggerHandlers/EmailReceipts/PostEndTransactionTrigger"
+        },
+        {
+          "name": "EmailReceiptPostLogOn",
+          "description": "Email Receipt feature check after associate log on",
+          "triggerType": "PostLogon",
+          "modulePath": "TriggerHandlers/EmailReceipts/PostLogOnTrigger"
+        },
+        {
+          "name": "PreCustomerSave",
+          "description": "Check for mandatory fields befor saving new customer information",
+          "triggerType": "PreCustomerSave",
+          "modulePath": "TriggerHandlers/CustomerMandatoryFields/PreCustomerSaveTrigger"
+        },
+        {
+          "name": "PreCustomerAdd",
+          "description": "Trigger to prevent offline customer creation",
+          "triggerType": "PreCustomerAdd",
+          "modulePath": "TriggerHandlers/PreventOfflineCustomerCreation/PreCustomerAddTrigger"
+        },
+        {
+          "name": "PostEndTransaction",
+          "description": "Spend and Get operation after closing a transaction",
+          "triggerType": "PostEndTransaction",
+          "modulePath": "TriggerHandlers/SpendAndGet/PostEndTransactionTrigger"
+        },
+        {
+          "name": "PostLogon",
+          "description": "Trigger to read spend and get global settings",
+          "triggerType": "PostLogOn",
+          "modulePath": "TriggerHandlers/SpendAndGet/PostLogOnTrigger"
+        },
+        {
+          "name": "PreAddCoupon",
+          "description": "Spend and Get coupon",
+          "triggerType": "PreAddCoupon",
+          "modulePath": "TriggerHandlers/UsabilityEnhancements/PreAddCouponTrigger"
+        },
+        {
+          "name": "PredEndTransaction",
+          "description": "Spend and Get coupon before finalizing cart transaction",
+          "triggerType": "PreEndTransaction",
+          "modulePath": "TriggerHandlers/UsabilityEnhancements/PreEndTransactionTrigger"
+        },
+        {
+          "name": "PreLineDiscountAmountTrigger",
+          "description": "Usability enhancements pre line discount amount trigger",
+          "triggerType": "PreLineDiscountAmount",
+          "modulePath": "TriggerHandlers/UsabilityEnhancements/PreLineDiscountAmountTrigger"
+        },
+        {
+          "name": "PreLineDiscountPercent",
+          "description": "Usability enhancements pre line discount percent trigger",
+          "triggerType": "PreLineDiscountPercent",
+          "modulePath": "TriggerHandlers/UsabilityEnhancements/PreLineDiscountPercentTrigger"
+        },
+        {
+          "name": "PostTotalDiscountPercent",
+          "description": "Usability enhancements post total discount percent trigger",
+          "triggerType": "PostTotalDiscountPercent",
+          "modulePath": "TriggerHandlers/UsabilityEnhancements/PostTotalDiscountPercentTrigger"
+        },
+        {
+          "name": "PostTotalDiscountAmount",
+          "description": "Usability enhancements post total discount amount trigger",
+          "triggerType": "PostTotalDiscountAmount",
+          "modulePath": "TriggerHandlers/UsabilityEnhancements/PostTotalDiscountAmountTrigger"
+        },
+        {
+          "name": "PreTotalDiscountPercent",
+          "description": "Usability enhancements pre total discount percent trigger",
+          "triggerType": "PreTotalDiscountPercent",
+          "modulePath": "TriggerHandlers/UsabilityEnhancements/PreTotalDiscountPercentTrigger"
+        },
+        {
+          "name": "PreTotalDiscountAmount",
+          "description": "Usability enhancements pre total discount amount trigger",
+          "triggerType": "PreTotalDiscountAmount",
+          "modulePath": "TriggerHandlers/UsabilityEnhancements/PreTotalDiscountAmountTrigger"
+        },
+        {
+          "name": "PreDisplayLoyaltyCardBalance",
+          "description": "Loyalty card pre display balance trigger",
+          "triggerType": "PreDisplayLoyaltyCardBalance",
+          "modulePath": "TriggerHandlers/LoyaltyDollar/PreDisplayLoyaltyCardBalanceTrigger"
+        },
+        {
+          "name": "PostIssueLoyaltyCard",
+          "description": "Issue loyalty card trigger",
+          "triggerType": "PostIssueLoyaltyCard",
+          "modulePath": "TriggerHandlers/LoyaltyDollar/PostIssueLoyaltyCardTrigger"
+        },
+        {
+          "name": "PostLogon",
+          "description": "Trigger to read customer search feature configuration",
+          "triggerType": "PostLogOn",
+          "modulePath": "TriggerHandlers/CustomerSearch/PostLogOnTrigger"
+        },
+        {
+          "name": "PreCustomerAdd",
+          "description": "Trigger to enforce customer search configuration when creating a customer",
+          "triggerType": "PreCustomerAdd",
+          "modulePath": "TriggerHandlers/CustomerSearch/PreCustomerAddTrigger"
+        },
+        {
+          "name": "PreCustomerSearch",
+          "description": "Trigger to enforce customer search configuration when searching a customer",
+          "triggerType": "PreCustomerSearch",
+          "modulePath": "TriggerHandlers/CustomerSearch/PreCustomerSearchTrigger"
+        },
+        {
+          "name": "PostEndTransaction",
+          "description": "Trigger to reset background color after finishing current transaction",
+          "triggerType": "PostEndTransaction",
+          "modulePath": "TriggerHandlers/ReturnTransactionColors/PostEndTransactionTrigger"
+        },
+        {
+          "name": "PostLogOn",
+          "description": "Trigger to read background color configuration on cashier log on",
+          "triggerType": "PostLogOn",
+          "modulePath": "TriggerHandlers/ReturnTransactionColors/PostLogOnTrigger"
+        },
+        {
+          "name": "PostRecallTransaction",
+          "description": "Trigger to restore background color after recalling suspended transaction",
+          "triggerType": "PostRecallTransaction",
+          "modulePath": "TriggerHandlers/ReturnTransactionColors/PostRecallTransactionTrigger"
+        },
+        {
+          "name": "PostReturnProduct",
+          "description": "Trigger to reset background color after product return",
+          "triggerType": "PostReturnProduct",
+          "modulePath": "TriggerHandlers/ReturnTransactionColors/PostReturnProductTrigger"
+        },
+        {
+          "name": "PostReturnTransaction",
+          "description": "Trigger to reset background color after finishing current return transaction",
+          "triggerType": "PostReturnTransaction",
+          "modulePath": "TriggerHandlers/ReturnTransactionColors/PostReturnTransactionTrigger"
+        },
+        {
+          "name": "PostSuspendTransaction",
+          "description": "Trigger to reset background color after suspending transaction",
+          "triggerType": "PostSuspendTransaction",
+          "modulePath": "TriggerHandlers/ReturnTransactionColors/PostSuspendTransactionTrigger"
+        },
+        {
+          "name": "PostVoidProducts",
+          "description": "Trigger to reset background color after voiding product",
+          "triggerType": "PostVoidProducts",
+          "modulePath": "TriggerHandlers/ReturnTransactionColors/PostVoidProductsTrigger"
+        },
+        {
+          "name": "PostVoidTransaction",
+          "description": "Trigger to reset background color after voiding transaction",
+          "triggerType": "PostVoidTransaction",
+          "modulePath": "TriggerHandlers/ReturnTransactionColors/PostVoidTransactionTrigger"
+        },
+        {
+          "name": "PrePickUpCustomerOrderLinesTrigger",
+          "description": "Trigger to Setting Global Variable to identify PrePickUpCustomerOrder Trigger has been hit.",
+          "triggerType": "PrePickUpCustomerOrderLines",
+          "modulePath": "TriggerHandlers/CloseOrderAtPickUp/PrePickUpCustomerOrderLinesTrigger"
+        }
+      ],
+      "requestHandlers": [
+        {
+          "name": "CashDrawerOpenRequestHandlerExt",
+          "description": "Handler for cash drawer open request",
+          "modulePath": "Handlers/OpenDrawer/CashDrawerOpenRequestHandlerExt"
+        },
+        {
+          "name": "ExecuteHttpRequestRequestHandler",
+          "description": "Handler for initializing fiscal register",
+          "modulePath": "Handlers/PosFiscalConnector/Initialize"
+        },
+        {
+          "name": "ExecuteHttpRequestRequestHandler",
+          "description": "Handler for validating the readiness of a fiscal register",
+          "modulePath": "Handlers/PosFiscalConnector/IsReady"
+        },
+        {
+          "name": "ExecuteHttpRequestRequestHandler",
+          "description": "Handler for submitting a document to a fiscal register",
+          "modulePath": "Handlers/PosFiscalConnector/SubmitDocument"
+        },
+        {
+          "name": "GetPickupDateClientRequestHandlerExt",
+          "description": "Handler to Override request for Pickup Date request",
+          "modulePath": "Handlers/POSOverridePicking/GetPickupDateClientRequestHandlerExt"
+        },
+        {
+          "name": "ShowChangeDueClientRequest",
+          "description": "Handler to show remaining change for a tendered transaction",
+          "modulePath": "Handlers/ShowChangeDueClientRequestHandlerExt"
+        },
+        {
+          "name": "SelectCustomerOrderTypeClientRequestHandlerExt",
+          "description": "Select Customer OrderType Client Request Handler Ext",
+          "modulePath": "Handlers/POSCreateOrder/SelectCustomerOrderTypeClientRequestHandlerExt"
+        },
+        {
+          "name": "GetReceiptEmailAddressClientRequestHandlerExt",
+          "description": "Override request handler class for getting the receipt email address.",
+          "modulePath": "Handlers/CloseOrderAtPickUp/GetReceiptEmailAddressClientRequestHandlerExt"
+        },
+        {
+          "name": "GetKeyedInPriceClientRequestHandlerExt",
+          "description": " Override request handler for getting custom keyed in price.",
+          "modulePath": "Handlers/RoundUpCharity/GetKeyedInPriceClientRequestHandlerExt"
+        }
+      ]
+    }
+  }
+}
