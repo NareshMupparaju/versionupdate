@@ -22,4 +22,4 @@ jobs:
         git config --global user.name "NareshMupparaju"
         git commit -m "Update version number" -a
         git push
-        echo "$(git diff --name-only --diff-filter=ACMRTUXB main...[${{ github.event.pull_request.head.ref }}] | grep / | sed 's#/*$##' | sort -u)" | tr ' ' '\n'
+        echo "$(git diff --name-only --diff-filter=ACMRTUXB main...[${{ github.event.pull_request.head.ref }}] | grep / | cut -d/ -f2- | sort -u)" | tr ' ' '\n'
