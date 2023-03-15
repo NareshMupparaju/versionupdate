@@ -4,15 +4,15 @@ on:
   pull_request:
 
 jobs:
-  list_files_added:
+  list-modified-folders:
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
         ref: ${{ github.event.pull_request.head.ref }}
-      
-    - name: List files added
+
+    - name: Get modified folders
       run: |
-        echo "Files added in this pull request:"
-        git diff --name-only --diff-filter=A main...[${{ github.event.pull_request.head.ref }}]
+        git diff --name-only HEAD^..HEAD | xargs -I % sh -c 'dirname %' | sort -u
