@@ -15,4 +15,4 @@ jobs:
 
     - name: Get modified folders
       run: |
-        git diff --name-only HEAD^..HEAD | xargs -I % sh -c 'dirname %' | sort -u
+        git diff --name-only HEAD^..[${{ github.event.pull_request.head.ref }}] | xargs -I % sh -c 'dirname %' | sort -u
