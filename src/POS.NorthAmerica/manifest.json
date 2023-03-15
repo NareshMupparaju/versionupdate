@@ -3,7 +3,7 @@
   "name": "Columbia.Extensions.NorthAmerica",
   "publisher": "Columbia Sportswear",
   "description": "North America POS extensions",
-  "version": "9.40.1.19",
+  "version": "9.40.1.20",
   "minimumPosVersion": "9.28.0.0",
   "supportedCountryRegions": [
     "US",
