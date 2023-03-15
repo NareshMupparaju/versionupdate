@@ -10,6 +10,18 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
+        
+    - name: Loop through folders
+      run: |
+        for dir in $(find ./src/* -type d); do
+          echo "Directory: $dir"
+          if ! git diff HEAD -- $dir; then
+            echo "Changes were made!"
+          else
+            echo "No changes were made."
+          fi
 
     - name: Loop through folders
       run: |
