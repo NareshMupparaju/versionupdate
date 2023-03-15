@@ -11,22 +11,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Get modified folders Global
-      run: |
-        if ! git diff --quiet main..[${{ github.event.pull_request.head.ref }}] ./src/POS.Global; then
-            echo "Changes were made!"
-          else
-            echo "No changes were made."
-          fi          
-
-    - name: Get modified folders NA
-      run: |
-        if ! git diff --quiet main..[${{ github.event.pull_request.head.ref }}] ./src/POS.NorthAmerica; then
-            echo "Changes were made!"
-          else
-            echo "No changes were made."
-          fi
-
     - name: Loop through folders
       run: |
         for dir in $(find ./src/* -type d); do
@@ -36,7 +20,7 @@ jobs:
           else
             echo "No changes were made."
           fi
-          if ! git diff --quiet [HEAD^] [HEAD] $dir; then
+          if ! git diff --quiet main [${{ github.event.pull_request.head.ref }}] $dir; then
             echo "Changes were made!"
           else
             echo "No changes were made."
