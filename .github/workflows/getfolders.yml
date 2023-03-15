@@ -15,7 +15,7 @@ jobs:
 
     - name: Get modified folders
       run: |
-        if ! git diff main..[${{ github.event.pull_request.head.ref }}] src/POS.Global; then
+        if git diff --quiet main..[${{ github.event.pull_request.head.ref }}] src/POS.Global; then
             echo "Changes were made!"
           else
             echo "No changes were made."
@@ -23,7 +23,7 @@ jobs:
           
     - name: Check folder modified
       run: |
-        if ! git diff ${{ github.event.pull_request.head.ref }} -- src/POS.Global; then
+        if git diff --quiet ${{ github.event.pull_request.head.ref }} -- src/POS.Global; then
             echo "Changes were made!"
           else
             echo "No changes were made."
@@ -31,7 +31,31 @@ jobs:
           
     - name: Check folder modified HEAD
       run: |
-        if ! git diff HEAD -- src/POS.Global; then
+        if git diff --quiet HEAD -- src/POS.Global; then
+            echo "Changes were made!"
+          else
+            echo "No changes were made."
+          fi
+
+    - name: Get modified folders
+      run: |
+        if git diff --quiet main..[${{ github.event.pull_request.head.ref }}] src/POS.NorthAmerica; then
+            echo "Changes were made!"
+          else
+            echo "No changes were made."
+          fi
+          
+    - name: Check folder modified
+      run: |
+        if git diff --quiet ${{ github.event.pull_request.head.ref }} -- src/POS.NorthAmerica; then
+            echo "Changes were made!"
+          else
+            echo "No changes were made."
+          fi
+          
+    - name: Check folder modified HEAD
+      run: |
+        if git diff --quiet HEAD -- src/POS.NorthAmerica; then
             echo "Changes were made!"
           else
             echo "No changes were made."
