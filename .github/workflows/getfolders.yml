@@ -15,5 +15,4 @@ jobs:
 
     - name: Get modified folders
       run: |
-        git diff --cached
-        $ cp -pv --parents $(git diff --name-only) .\src
+        git config --global core.pager ''
