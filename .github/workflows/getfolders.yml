@@ -29,9 +29,9 @@ jobs:
             echo "No changes were made."
           fi
 
-    - name: Check folders
+    - name: Loop through folders
       run: |
-        cd ${{ github.workspace }}
-        for dir in */; do
+        for dir in $(find ./src -type d); do
           echo "Directory: $dir"
+          # Perform actions on each folder here
         done
