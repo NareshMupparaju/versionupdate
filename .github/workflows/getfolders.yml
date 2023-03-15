@@ -15,4 +15,8 @@ jobs:
 
     - name: Get modified folders
       run: |
-        git diff --quiet HEAD "$(git describe --tags --abbrev=0 HEAD)" -- .\src\POS.Global || echo changed
+        if ! git diff --quiet; then
+            echo "Changes were made!"
+          else
+            echo "No changes were made."
+          fi
