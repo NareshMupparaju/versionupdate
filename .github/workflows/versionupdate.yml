@@ -16,8 +16,7 @@ jobs:
 
     - name: Update Version Number
       shell: pwsh
-      run: |                                
-        git diff --name-only
+      run: |
         .\updateversion.ps1
         git config --global user.email "naresh.mup@gmail.com"
         git config --global user.name "NareshMupparaju"
