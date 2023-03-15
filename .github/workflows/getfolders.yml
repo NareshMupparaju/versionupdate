@@ -15,4 +15,4 @@ jobs:
 
     - name: Get modified folders
       run: |
-        git config --global core.pager ''
+        git diff --quiet HEAD main -- .\src\POS.Global || echo changed
