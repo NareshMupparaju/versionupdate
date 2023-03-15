@@ -1,7 +1,7 @@
 param(
     [string]$RelativePath = "./src"
 )
-git diff --name-only
+
 $jsonfiles = Get-ChildItem -Path $RelativePath -Filter manifest.json -Recurse
 foreach($file in $jsonfiles)
 {
