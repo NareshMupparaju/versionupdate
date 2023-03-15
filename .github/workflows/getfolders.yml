@@ -1,19 +1,16 @@
-name: List PR files
+name: List Files Added in Pull Request
 
 on:
   pull_request:
-    branches:
-      - main
 
 jobs:
-  list_files:
+  list_files_added:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-      - name: List files
-        run: |
-          git fetch origin pull/${{ github.event.pull_request.number }}/head
-          git diff --name-only HEAD FETCH_HEAD
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: List files added
+      run: |
+        echo "Files added in this pull request:"
+        git diff --name-only HEAD^..HEAD | grep -E "\.md$"
