@@ -19,23 +19,7 @@ jobs:
             echo "Changes were made!"
           else
             echo "No changes were made."
-          fi
-          
-    - name: Check folder modified
-      run: |
-        if git diff --quiet ${{ github.event.pull_request.head.ref }} -- src/POS.Global; then
-            echo "Changes were made!"
-          else
-            echo "No changes were made."
-          fi
-          
-    - name: Check folder modified HEAD
-      run: |
-        if git diff --quiet HEAD -- src/POS.Global; then
-            echo "Changes were made!"
-          else
-            echo "No changes were made."
-          fi
+          fi          
 
     - name: Get modified folders
       run: |
@@ -44,19 +28,16 @@ jobs:
           else
             echo "No changes were made."
           fi
-          
-    - name: Check folder modified
+
+    - name: Get modified folders
       run: |
-        if git diff --quiet ${{ github.event.pull_request.head.ref }} -- src/POS.NorthAmerica; then
+        $files = Get-ChildItem -Path ./src -Recurse
+        foreach($file in $files)
+        {
+          if git diff --quiet main..[${{ github.event.pull_request.head.ref }}] $file; then
             echo "Changes were made!"
+            ./updateversion.ps1
           else
             echo "No changes were made."
-          fi
-          
-    - name: Check folder modified HEAD
-      run: |
-        if git diff --quiet HEAD -- src/POS.NorthAmerica; then
-            echo "Changes were made!"
-          else
-            echo "No changes were made."
-          fi
+          fi          
+        }
