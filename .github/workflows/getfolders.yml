@@ -33,6 +33,5 @@ jobs:
       run: |
         cd ${{ github.workspace }}
         for dir in */; do
-          echo "Directory: $dir"        
-          fi
+          echo "Directory: $dir"
         done
