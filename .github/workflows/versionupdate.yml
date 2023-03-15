@@ -17,7 +17,7 @@ jobs:
     - name: Update Version Number
       shell: pwsh
       run: |                                
-        echo "$({{ github.event.pull_request.changed_files }} | xargs -I {} find {} -type d | sort | uniq)"
+        echo "$({{ github.event.pull_request.changed_files }})"
         .\updateversion.ps1
         git config --global user.email "naresh.mup@gmail.com"
         git config --global user.name "NareshMupparaju"
