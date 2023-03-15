@@ -31,7 +31,7 @@ jobs:
 
     - name: Loop through folders
       run: |
-        for dir in $(find ./src/ -type d); do
+        for dir in $(find ./src/* -type d); do
           echo "Directory: $dir"
           # Perform actions on each folder here
         done
