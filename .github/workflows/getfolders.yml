@@ -31,10 +31,10 @@ jobs:
 
     - name: Loop through folders
       run: |
+        git diff --name-only main..[${{ github.event.pull_request.head.ref }}] > files.txt
         for dir in $(find ./src/* -type d); do
           echo "Directory: $dir"
           # Perform actions on each folder here
-          git diff --name-only HEAD^ HEAD > files.txt
           if grep -q "$dir" files.txt; then
             echo "The src folder has been modified."
           else
