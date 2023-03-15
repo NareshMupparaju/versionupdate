@@ -33,7 +33,7 @@ jobs:
           else
             echo "No changes were made."
           fi
-          if ! git diff --quiet main [${{ github.event.pull_request.head.ref }}] $dir; then
+          if ! git diff --quiet [main] [${{ github.event.pull_request.head.ref }}] $dir; then
             echo "Changes were made!"
           else
             echo "No changes were made."
