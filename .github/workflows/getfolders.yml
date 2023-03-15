@@ -15,4 +15,5 @@ jobs:
 
     - name: Get modified folders
       run: |
-        git --no-pager diff
+        git diff --cached
+        $ cp -pv --parents $(git diff --name-only) .\src
