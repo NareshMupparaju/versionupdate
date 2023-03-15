@@ -32,6 +32,7 @@ jobs:
     - name: Loop through folders
       run: |
         git diff --name-only main..[${{ github.event.pull_request.head.ref }}] > files.txt
+        echo $(files.txt)
         for dir in $(find ./src/* -type d); do
           echo "Directory: $dir"
           # Perform actions on each folder here
@@ -39,6 +40,5 @@ jobs:
             echo "The src folder has been modified."
           else
             echo "The src folder has not been modified."
-            exit 1
           fi
         done
