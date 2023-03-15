@@ -10,8 +10,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      with:
-        ref: ${{ github.event.pull_request.head.ref }}
 
     - name: Get modified folders Global
       run: |
@@ -31,12 +29,14 @@ jobs:
 
     - name: Loop through folders
       run: |
-        git diff --name-only [HEAD^]..[HEAD] > files.txt
-        echo $(files.txt)
         for dir in $(find ./src/* -type d); do
           echo "Directory: $dir"
-          # Perform actions on each folder here
           if ! git diff --quiet [${{ github.event.pull_request.head.ref }}] $dir; then
+            echo "Changes were made!"
+          else
+            echo "No changes were made."
+          fi
+          if ! git diff --quiet HEAD^ HEAD $dir; then
             echo "Changes were made!"
           else
             echo "No changes were made."
