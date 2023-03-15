@@ -13,15 +13,15 @@ jobs:
       with:
         ref: ${{ github.event.pull_request.head.ref }}
 
-    - name: Get modified folders
+    - name: Get modified folders Global
       run: |
-        if git diff --quiet main..[${{ github.event.pull_request.head.ref }}] src/POS.Global; then
+        if ! git diff --quiet main..[${{ github.event.pull_request.head.ref }}] src/POS.Global; then
             echo "Changes were made!"
           else
             echo "No changes were made."
           fi          
 
-    - name: Get modified folders
+    - name: Get modified folders NA
       run: |
         if git diff --quiet main..[${{ github.event.pull_request.head.ref }}] src/POS.NorthAmerica; then
             echo "Changes were made!"
@@ -29,15 +29,14 @@ jobs:
             echo "No changes were made."
           fi
 
-    - name: Get modified folders
+    - name: Check folders
       run: |
-        $files = Get-ChildItem -Path ./src -Recurse
-        foreach($file in $files)
-        {
-          if git diff --quiet main..[${{ github.event.pull_request.head.ref }}] $file; then
+        cd ${{ github.workspace }}
+        for dir in */; do
+          echo "Directory: $dir"
+          if ! git diff --quiet main..[${{ github.event.pull_request.head.ref }}] $dir; then
             echo "Changes were made!"
-            ./updateversion.ps1
           else
             echo "No changes were made."
-          fi          
-        }
+          fi
+        done
