@@ -15,4 +15,4 @@ jobs:
 
     - name: Get modified folders
       run: |
-        git diff --quiet HEAD main -- .\src\POS.Global || echo changed
+        git diff --quiet HEAD "$(git describe --tags --abbrev=0 HEAD)" -- .\src\POS.Global || echo changed
