@@ -15,5 +15,5 @@ jobs:
     - name: List files added
       run: |
         echo "Files added in this pull request:"
-        git diff --name-only [${{ github.event.pull_request.head.sha }}]^..[${{ github.event.pull_request.head.sha }}]
+        git diff --name-only
         echo "$(git diff --name-only --diff-filter=ACMRTUXB main...[${{ github.event.pull_request.head.ref }}])"  
