@@ -9,8 +9,10 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
       
     - name: List files added
       run: |
         echo "Files added in this pull request:"
-        git diff --name-only HEAD^..HEAD | grep -E "\.md$"
+        git diff --name-only ${{ github.event.pull_request.head.sha }}^..${{ github.event.pull_request.head.sha }}
