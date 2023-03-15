@@ -13,6 +13,6 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: List Files Added
         run: |
-          added_files=$(git diff-tree --no-commit-id --name-only -r ${{ github.event.pull_request.head.sha }} | grep '^+' | sed 's/^+//')
+          added_files=$(git diff-tree --no-commit-id --name-only -r ${{ github.event.pull_request.head.sha }})
           echo "Files Added:"
           echo "${added_files}"
