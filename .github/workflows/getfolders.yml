@@ -1,3 +1,5 @@
+name: List folders in PR
+
 on: pull_request
 
 jobs:
@@ -9,11 +11,11 @@ jobs:
 
       - name: Get changed files
         id: changed-files
-        run: echo "::set-output name=files::$(git diff --name-only main...[${{ github.event.pull_request.head.ref }}]"
+        run: echo "$(git diff --name-only main...[${{ github.event.pull_request.head.ref }}]"
       
       - name: Get folder list
         id: folder-list
-        run: echo "::set-output name=folders::$(echo ${{ steps.changed-files.outputs.files }} | xargs -I {} dirname {} | sort | uniq)"
+        run: echo "$(echo ${{ steps.changed-files.outputs.files }} | xargs -I {} dirname {} | sort | uniq)"
         
       - name: Print folder list
         run: echo "${{ steps.folder-list.outputs.folders }}"
