@@ -15,4 +15,4 @@ jobs:
 
     - name: Get modified folders
       run: |
-        echo "$(git diff --name-only [${{ github.event.pull_request.base.sha }}]...[${{ github.event.pull_request.head.sha }}])"
+        git --no-pager diff
