@@ -23,7 +23,7 @@ jobs:
 
     - name: Get modified folders NA
       run: |
-        if git diff --quiet main..[${{ github.event.pull_request.head.ref }}] src/POS.NorthAmerica; then
+        if ! git diff --quiet main..[${{ github.event.pull_request.head.ref }}] src/POS.NorthAmerica; then
             echo "Changes were made!"
           else
             echo "No changes were made."
@@ -32,7 +32,7 @@ jobs:
     - name: Check folders
       run: |
         cd ${{ github.workspace }}
-        for dir in */; do
+        for dir in */src; do
           echo "Directory: $dir"
           if ! git diff --quiet main..[${{ github.event.pull_request.head.ref }}] $dir; then
             echo "Changes were made!"
