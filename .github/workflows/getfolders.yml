@@ -32,11 +32,7 @@ jobs:
     - name: Check folders
       run: |
         cd ${{ github.workspace }}
-        for dir in */src/; do
-          echo "Directory: $dir"
-          if ! git diff --quiet main..[${{ github.event.pull_request.head.ref }}] $dir; then
-            echo "Changes were made!"
-          else
-            echo "No changes were made."
+        for dir in */; do
+          echo "Directory: $dir"        
           fi
         done
