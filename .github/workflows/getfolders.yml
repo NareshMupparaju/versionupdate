@@ -10,7 +10,8 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          
       - name: List Files Added
         run: |
           added_files=$(git diff-tree --no-commit-id --name-only -r ${{ github.event.pull_request.head.sha }})
