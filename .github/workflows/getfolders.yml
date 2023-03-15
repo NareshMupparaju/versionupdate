@@ -34,4 +34,11 @@ jobs:
         for dir in $(find ./src/* -type d); do
           echo "Directory: $dir"
           # Perform actions on each folder here
+          git diff --name-only HEAD^ HEAD > files.txt
+          if grep -q "$dir" files.txt; then
+            echo "The src folder has been modified."
+          else
+            echo "The src folder has not been modified."
+            exit 1
+          fi
         done
