@@ -15,7 +15,7 @@ jobs:
 
     - name: Get modified folders Global
       run: |
-        if ! git diff --quiet main..[${{ github.event.pull_request.head.ref }}] src/POS.Global; then
+        if ! git diff --quiet main..[${{ github.event.pull_request.head.ref }}] ./src/POS.Global; then
             echo "Changes were made!"
           else
             echo "No changes were made."
@@ -23,7 +23,7 @@ jobs:
 
     - name: Get modified folders NA
       run: |
-        if ! git diff --quiet main..[${{ github.event.pull_request.head.ref }}] src/POS.NorthAmerica; then
+        if ! git diff --quiet main..[${{ github.event.pull_request.head.ref }}] ./src/POS.NorthAmerica; then
             echo "Changes were made!"
           else
             echo "No changes were made."
@@ -31,14 +31,14 @@ jobs:
 
     - name: Loop through folders
       run: |
-        git diff --name-only main..[${{ github.event.pull_request.head.ref }}] > files.txt
+        git diff --name-only [HEAD^]..[HEAD] > files.txt
         echo $(files.txt)
         for dir in $(find ./src/* -type d); do
           echo "Directory: $dir"
           # Perform actions on each folder here
-          if grep -q "$dir" files.txt; then
-            echo "The src folder has been modified."
+          if ! git diff --quiet [${{ github.event.pull_request.head.ref }}] $dir; then
+            echo "Changes were made!"
           else
-            echo "The src folder has not been modified."
+            echo "No changes were made."
           fi
         done
