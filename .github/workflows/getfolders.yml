@@ -23,7 +23,7 @@ jobs:
           
     - name: Check folder modified
       run: |
-        if ! git diff [${{ github.event.pull_request.head.ref }}] -- src/POS.Global; then
+        if ! git diff ${{ github.event.pull_request.head.ref }} -- src/POS.Global; then
             echo "Changes were made!"
           else
             echo "No changes were made."
