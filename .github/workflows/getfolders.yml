@@ -4,15 +4,15 @@ on:
   pull_request:
 
 jobs:
-  list_files_added:
+  list-files-added:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      with:
-        ref: ${{ github.event.pull_request.head.ref }}
-      
-    - name: List files added
-      run: |
-        echo "Files added in this pull request:"
-        git diff --name-only --diff-filter=A main...[${{ github.event.pull_request.head.ref }}]
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: List Files Added
+        run: |
+          added_files=$(git diff-tree --no-commit-id --name-only -r ${GITHUB_SHA} | grep '^+' | sed 's/^+//')
+          echo "Files Added:"
+          echo "${added_files}"
