@@ -26,13 +26,13 @@ jobs:
       id: modified-folders
       run: |
           # Get the list of changed files in the pull request
-          files=$(find ./src/ -type f -name "*" -not -path "./.git/*")
+          files=$(find ./src -type f -name "*" -not -path "./.git/*")
 
           # Parse the folder names from the file paths
           folders=$(echo "$files" | xargs -n1 dirname | sort -u)
 
           # Output the list of modified folders
-          echo "::set-output name=folders::$folders"
+          echo "$folders"
           
     - name: Print modified folders
       run: |
