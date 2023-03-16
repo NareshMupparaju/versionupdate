@@ -22,6 +22,25 @@ jobs:
           fi
         done
         
+    - name: List modified folders
+      run: |
+          git diff --name-only HEAD^ HEAD | \
+            xargs -I {} dirname {} | \
+            sort | \
+            uniq | \
+            sed -e 's/^\.\///'
+            
+    - name: List modified folders
+      run: |
+        # Get the base branch name from the pull request
+        base_branch=$(echo "${{ github.event.pull_request.base.ref }}" | sed 's/refs\/heads\///g')
+
+        # List the modified folders using find
+        folders=$(find . -type f -not -path "./.git/*" -not -path "*/$base_branch/*" -exec dirname {} \; | sort | uniq)
+        
+        # Output the list of modified folders
+        echo "$folders"
+        
     - name: Get modified folders
       id: modified-folders
       run: |
