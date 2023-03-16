@@ -25,7 +25,7 @@ jobs:
     - name: Check folder modification
       run: |
           # Get the name of the folder you want to check
-          FOLDER_NAME="path/to/folder"
+          FOLDER_NAME="src/POS.Global"
           # Get the list of files modified in the pull request
           FILES_MODIFIED=$(git diff --name-only main..[${{ github.head_ref }})]
           # Check if the folder is in the list of modified files
