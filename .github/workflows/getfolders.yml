@@ -47,6 +47,6 @@ jobs:
           
     - name: Get Added File Paths
       run: |
-          for file_path in "${{ github.event.pull_request.added[@] }}"; do
+          for file_path in "${{ toJson(github.event.pull_request.added) }}"; do
             echo "Added file: $file_path"
           done
