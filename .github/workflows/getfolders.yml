@@ -26,7 +26,7 @@ jobs:
       id: modified-folders
       run: |
           # Get the list of changed files in the pull request
-          files=$(git diff --name-only HEAD)
+          files=$(find . -type f -name "*" -not -path "./.git/*")
 
           # Parse the folder names from the file paths
           folders=$(echo "$files" | xargs -n1 dirname | sort -u)
