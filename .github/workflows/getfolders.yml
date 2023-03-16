@@ -44,7 +44,7 @@ jobs:
           pr_sha=$(git rev-parse HEAD)
 
           # Get the base commit sha for the pull request
-          base_sha=$(git merge-base HEAD ${{ github.event.pull_request.base.ref }})
+          base_sha=$(git merge-base HEAD main)
 
           # Get the files that have been modified in the pull request
           modified_files=$(git diff --name-only $base_sha $pr_sha)
