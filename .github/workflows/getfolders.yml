@@ -40,7 +40,7 @@ jobs:
           # Get the name of the folder you want to check
           FOLDER_NAME="path/to/folder"
           # Get the list of files modified in the pull request
-          FILES_MODIFIED=$(git diff --name-only ${{ github.base_ref }} ${{ github.head_ref }})
+          FILES_MODIFIED=$(git diff --name-only [${{ github.base_ref }}] -- [${{ github.head_ref }})]
           # Check if the folder is in the list of modified files
           if echo "$FILES_MODIFIED" | grep -q "^$FOLDER_NAME"; then
             echo "Folder $FOLDER_NAME has been modified"
