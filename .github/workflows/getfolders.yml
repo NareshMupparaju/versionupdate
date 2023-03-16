@@ -64,4 +64,4 @@ jobs:
     - name: Display File Paths
       run: |
           echo "The following files were changed in the pull request:"
-          echo "${{ steps.file-paths.outputs.data | from_json | map(attribute='filename') | join('\n') }}"
+          echo "${{ steps.file-paths.outputs.data }}"
