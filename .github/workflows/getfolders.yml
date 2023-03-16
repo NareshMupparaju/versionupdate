@@ -13,10 +13,6 @@ jobs:
       with:
         ref: ${{ github.event.pull_request.head.ref }}
         
-    - name: Git diff
-      run: |
-           git diff HEAD
-        
     - name: Loop through folders
       run: |
         for dir in $(find ./src/* -type d); do
@@ -38,3 +34,28 @@ jobs:
             echo "No changes were made."
           fi
         done
+        
+    - name: Get folder modified date time
+      run: |
+          # Set the folder path to the one you want to check
+          folder_path="./src/"
+
+          # Get the latest commit sha for the pull request
+          pr_sha=$(git rev-parse HEAD)
+
+          # Get the base commit sha for the pull request
+          base_sha=$(git merge-base HEAD ${{ github.event.pull_request.base.ref }})
+
+          # Get the files that have been modified in the pull request
+          modified_files=$(git diff --name-only $base_sha $pr_sha)
+
+          # Loop through the modified files to find the folder modification time
+          for file in $modified_files
+          do
+            if [[ "$file" == *"$folder_path"* ]]
+            then
+              folder_modified_time=$(git log -1 --pretty=format:%ai -- $folder_path)
+              echo "The folder $folder_path was last modified on $folder_modified_time."
+              break
+            fi
+          done
