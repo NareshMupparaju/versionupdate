@@ -22,7 +22,7 @@ jobs:
           fi
         done
             
-    - name: List modified folders
+    - name: Get modified folders
       run: |
         # Get the base branch name from the pull request
         base_branch=$(echo "${{ github.event.pull_request.head.ref }}" | sed 's/refs\/heads\///g')
@@ -35,17 +35,7 @@ jobs:
         # Output the list of modified folders
         echo "$folders"
         
-    - name: Get modified folders
-      id: modified-folders
-      run: |
-          # Get the list of changed files in the pull request
-          files=$(find ./src -type f -name "*" -not -path "./.git/*")
-
-          # Parse the folder names from the file paths
-          folders=$(echo "$files" | xargs -n1 dirname | sort -u)
-
-          # Output the list of modified folders
-          echo "$folders"
+        echo "${{ github.event.pull_request.created_at }}"
           
     - name: Print modified folders
       run: |
@@ -54,3 +44,24 @@ jobs:
 
           # Print the list of modified folders
           echo "Modified folders: $folders"
+          
+    - name: Get Pull Request Details
+      id: pr
+      uses: octokit/request-action@v2.x
+      with:
+          route: GET /repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}
+          headers: |
+            Authorization: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Get File Paths
+      id: file-paths
+      uses: octokit/request-action@v2.x
+      with:
+          route: GET /repos/${{ github.repository }}/commits/${{ steps.pr.outputs.head_sha }}/files
+          headers: |
+            Authorization: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Display File Paths
+      run: |
+          echo "The following files were changed in the pull request:"
+          echo "${{ steps.file-paths.outputs.data | from_json | map(attribute='filename') | join('\n') }}"
