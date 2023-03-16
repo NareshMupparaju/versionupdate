@@ -13,6 +13,10 @@ jobs:
       with:
         ref: ${{ github.event.pull_request.head.ref }}
         
+    - name: Git diff
+      run: |
+           git diff HEAD
+        
     - name: Loop through folders
       run: |
         for dir in $(find ./src/* -type d); do
