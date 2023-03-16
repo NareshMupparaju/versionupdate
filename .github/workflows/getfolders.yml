@@ -22,16 +22,22 @@ jobs:
           fi
         done
         
-    - name: Check folder modification
+    - name: Get modified folders
+      id: modified-folders
       run: |
-          # Get the name of the folder you want to check
-          FOLDER_NAME="./src/POS.Global"
-          # Get the list of files modified in the pull request
-          FILES_MODIFIED=$(git diff --name-only main..[${{ github.head_ref }})]
-          # Check if the folder is in the list of modified files
-          if echo "$FILES_MODIFIED" | grep -q "^$FOLDER_NAME"; then
-            echo "Folder $FOLDER_NAME has been modified"
-            # do something here, e.g. run tests on the modified files in the folder
-          else
-            echo "Folder $FOLDER_NAME has not been modified"
-          fi
+          # Get the list of changed files in the pull request
+          files=$(git diff --name-only HEAD~1 HEAD)
+
+          # Parse the folder names from the file paths
+          folders=$(echo "$files" | xargs -n1 dirname | sort -u)
+
+          # Output the list of modified folders
+          echo "::set-output name=folders::$folders"
+          
+    - name: Print modified folders
+      run: |
+          # Retrieve the list of modified folders from the previous step
+          folders="${{ steps.modified-folders.outputs.folders }}"
+
+          # Print the list of modified folders
+          echo "Modified folders: $folders"
