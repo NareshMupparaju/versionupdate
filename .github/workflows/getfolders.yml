@@ -56,13 +56,10 @@ jobs:
       id: changed_dirs
       run: |
           CHANGED_DIRS=$(git diff --name-only HEAD $(git merge-base HEAD ${{ github.base_ref }}) | xargs -I {} dirname {})
-          echo "::set-output name=dirs::$CHANGED_DIRS"
+          echo "$CHANGED_DIRS"
 
     - name: Run script on changed directories
       run: |
           for dir in ${{ steps.changed_dirs.outputs.dirs }}; do
             echo "Running script in directory $dir"
-            cd $dir
-            ./your_script.sh
-            cd ..
           done
