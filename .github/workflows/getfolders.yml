@@ -72,6 +72,8 @@ jobs:
     - name: Get pull request info
       id: pr
       uses: octokit/request-action@v2.x
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
       with:
         route: GET /repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}
         headers: '{"Accept": "application/vnd.github.v3+json"}'
