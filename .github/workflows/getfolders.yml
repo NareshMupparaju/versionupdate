@@ -60,7 +60,7 @@ jobs:
     - name: Determine changed directories
       id: changed_dirs
       run: |
-          CHANGED_DIRS=$(git diff --name-only main...${{ github.event.pull_request.head.sha }} | xargs -I {} dirname {})
+          CHANGED_DIRS=$(git diff --name-only main -- [${{ github.event.pull_request.head.sha }}] | xargs -I {} dirname {})
           echo "$CHANGED_DIRS"
 
     - name: Run script on changed directories
@@ -68,3 +68,16 @@ jobs:
           for dir in ${{ steps.changed_dirs.outputs.dirs }}; do
             echo "Running script in directory $dir"
           done
+          
+    - name: Get pull request info
+      id: pr
+      uses: octokit/request-action@v2.x
+      with:
+        route: GET /repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}
+        headers: '{"Accept": "application/vnd.github.v3+json"}'
+        
+    - name: List files
+      run: |
+        echo "Files in pull request #${{ github.event.pull_request.number }}:"
+        curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" ${{ steps.pr.outputs.url }}/files \
+          | jq '.[].filename'
