@@ -20,7 +20,7 @@ jobs:
       run: |
         for dir in $(find ./src/* -type d); do
           echo "Directory: $dir"
-          if ! git diff HEAD -- $dir; then
+          if ! git diff main...${{ github.event.pull_request.head.sha }}; then
             echo "Changes were made!"
           else
             echo "No changes were made."
@@ -60,7 +60,7 @@ jobs:
     - name: Determine changed directories
       id: changed_dirs
       run: |
-          CHANGED_DIRS=$(git diff --name-only HEAD $(git merge-base HEAD ${{ github.base_ref }}) | xargs -I {} dirname {})
+          CHANGED_DIRS=$(git diff --name-only main...${{ github.event.pull_request.head.sha }} | xargs -I {} dirname {})
           echo "$CHANGED_DIRS"
 
     - name: Run script on changed directories
