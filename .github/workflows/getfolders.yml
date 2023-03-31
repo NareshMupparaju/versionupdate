@@ -25,14 +25,8 @@ jobs:
     - name: List files
       run: |
         echo "Files in pull request #${{ github.event.pull_request.number }}:"
-        curl -L \
+        files  = curl -L \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"\
           https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files
-          
-    - name: get files
-      run: |
-        files=(git diff-tree --no-commit-id --name-only -r ${{ github.event.pull_request.head.sha }})
-        for file_path in "$files"; do
-            echo "Added file: $file_path"
-        done
+        echo "$files"
