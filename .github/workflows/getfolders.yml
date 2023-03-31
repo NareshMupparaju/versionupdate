@@ -19,8 +19,14 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ github.token }}
       with:
-        route: GET /repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}
+        route: GET /repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files
         headers: '{"Accept": "application/vnd.github.v3+json"}'
+        
+    - name: Print file names
+      run: |
+        for file in ${{ steps.pr.outputs.data }}; do
+          echo $file | jq -r .filename
+        done
         
     - name: List files
       run: |
@@ -28,4 +34,4 @@ jobs:
         curl -L \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"\
-          https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files/filename
+          https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files
